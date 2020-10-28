@@ -1,7 +1,9 @@
 <template>
-  <div class="pa-3 wrap">
+  <div class="pa-5 wrap">
     <v-list>
-      <p>Less Spend, Less Write !</p>
+      <p>
+        <strong>Less Spend, Less Write !</strong>
+      </p>
       <v-btn
         tile
         color="lime"
@@ -16,7 +18,7 @@
         text
         @click="detailList"
       >
-        <span>[ Expense List ]</span>
+        <strong>[ Expense List ]</strong>
       </v-btn>
     </v-list>
     <v-list
@@ -30,6 +32,7 @@
         <v-list-item-content>
           <v-list-item-title>{{ list.type }}</v-list-item-title>
           <v-list-item-subtitle>￦ {{ list.expense }}</v-list-item-subtitle>
+          
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -49,13 +52,14 @@
 </template>
 
 <script>
+// @fixme : 사용금액도 천단위로 콤마 찍기.
 import data from '@/data'
 export default {
   name: "List",
   // 
   data(){
     return{
-      data: data,
+      data: data
     }
   },
   //
