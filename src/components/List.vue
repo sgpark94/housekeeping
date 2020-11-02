@@ -31,8 +31,9 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>{{ list.type }}</v-list-item-title>
-          <v-list-item-subtitle>￦ {{ list.expense }}</v-list-item-subtitle>
-          
+          <v-list-item-subtitle>
+            ￦ {{ list.price | comma }}
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -44,7 +45,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title style="font-weight: 700;">Total</v-list-item-title>
-          <v-list-item-subtitle style="font-weight: 700;">￦ {{ sum }}</v-list-item-subtitle>
+          <v-list-item-subtitle style="font-weight: 700;">￦ {{ sum | comma }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -52,25 +53,29 @@
 </template>
 
 <script>
-// @fixme : 사용금액도 천단위로 콤마 찍기.
 import data from '@/data'
 export default {
   name: "List",
   // 
   data(){
     return{
-      data: data
+      data: data,
+      name: ['All', 'For My Dear', 'MY Fat', 'Make a noise', 'Foods', 'Saving', 'Alcohol', 'Hospital', 'Shopping', 'Necessity', 'Transportation', 'Culture/Study', 'etc'],
     }
   },
-  //
+  filters:{
+    // 천단위로 콤마 찍기.
+    comma(val){
+  	  return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  },
   computed: {
     sum(){
       let total = 0;
-      this.data.forEach(price => {
-        total += parseInt(price.expense)
+      this.data.forEach(expense => {
+        total += parseInt(expense.price)
       })
-      // 1000 단위 콤마 찍기
-      return total.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
+      return total;
     }
   },
   methods: {
